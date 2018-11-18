@@ -1,4 +1,5 @@
 import {getAdapter} from './services';
+import serviceTypes from './services/serviceTypes';
 
 import './styles/main.scss';
 
@@ -6,7 +7,7 @@ const $input = document.getElementById('input');
 const $clearBtn = document.getElementById('clear-cookie');
 const $tasksList = document.getElementById('tasks-list');
 
-const adapter = getAdapter('mLab');
+const adapter = getAdapter(serviceTypes.sessionStorage);
 
 $clearBtn.addEventListener('click', () => {
   adapter.removeAll();
