@@ -6,7 +6,8 @@ const $input = document.getElementById('input');
 const $clearBtn = document.getElementById('clear-cookie');
 const $tasksList = document.getElementById('tasks-list');
 
-const adapter = getAdapter('mLab');
+const currentAdapter = 'indexedDB';
+const adapter = getAdapter(currentAdapter);
 
 $clearBtn.addEventListener('click', () => {
   adapter.removeAll();
@@ -17,8 +18,19 @@ $input.addEventListener('keyup', event => {
   if (event.key === 'Enter') {
     const {value} = event.target;
 
-    adapter.save(value);
-    renderTask(createTask(value));
+    if (currentAdapter === 'indexedDB') {
+      adapter.save(value)
+        .then(id => {
+          renderTask(createTask({
+            id, 
+            text: value
+          }));
+        });
+    } else {
+      adapter.save(value);
+      renderTask(createTask(value));      
+    }
+
     event.target.value = '';
   }
 });
@@ -29,17 +41,31 @@ $tasksList.addEventListener('click', event => {
     const value = $valueElement.textContent;
 
     $tasksList.removeChild(event.target.parentNode);
-    adapter.remove(value);
+    
+    if (currentAdapter === 'indexedDB') {
+      const stringId = event.target.getAttribute('data-id');
+      const numId = parseInt(stringId, 10);
+      adapter.remove(numId);
+    } else {
+      adapter.remove(value);
+    }
   }
 });
 
 const createTask = value => {
   const $li = document.createElement('li');
 
-  $li.innerHTML = `
-    <span class="value">${value}</span>
-    <span class="remove">&#x274C;</span>  
-  `;
+  if (currentAdapter === 'indexedDB') {
+    $li.innerHTML = `
+      <span class="value">${value.text}</span>
+      <span class="remove" data-id="${value.id}">&#x274C;</span>  
+    `;
+  } else {
+    $li.innerHTML = `
+      <span class="value">${value}</span>
+      <span class="remove">&#x274C;</span>  
+    `;
+  }
 
   return $li;
 };
