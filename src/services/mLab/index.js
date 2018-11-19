@@ -27,7 +27,7 @@ export const mLabService = {
       .then(response => response.json())
       .then(data => {
         console.error('data', data);
-        return data;
+        return value;
       });
   },
   remove (value) {
