@@ -1,20 +1,28 @@
 import { sessionStorageService } from './index';
 
-export const remove = value => {
-  const currentSession = sessionStorageService.read('todo');
-  const session = currentSession
-    .split('&')
-    .filter(item => item !== value)
-    .join('&');
+export const remove = async value => {
+  try {
+    const currentSession = sessionStorageService.read('todo');
+    const session = currentSession
+      .split('&')
+      .filter(item => item !== value)
+      .join('&');
 
-  sessionStorageService.write('todo', session);
+    return sessionStorageService.write('todo', session);
+  } catch (e) {
+    throw (e);
+  }
 };
 
-export const save = value => {
-  const currentSession = sessionStorageService.read('todo');
-  const currentValue = currentSession ? `${currentSession}&` : '';
+export const save = async value => {
+  try {
+    const currentSession = sessionStorageService.read('todo');
+    const currentValue = currentSession ? `${currentSession}&` : '';
 
-  sessionStorageService.write('todo', `${currentValue}${value}`);
+    return sessionStorageService.write('todo', `${currentValue}${value}`);
+  } catch (e) {
+    throw (e);
+  }
 };
 
 export const read = () => {
@@ -23,6 +31,10 @@ export const read = () => {
   return result ? Promise.resolve(result.split('&')) : Promise.resolve([]);
 };
 
-export const removeAll = () => {
-  sessionStorageService.remove('todo');
+export const removeAll = async () => {
+  try {
+    return sessionStorageService.remove('todo');
+  } catch (e) {
+    throw (e);
+  }
 };

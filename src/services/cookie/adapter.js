@@ -1,28 +1,41 @@
-import {cookieService} from './index';
+import { cookieService } from './index';
 
-export const remove = value => {
-  const currentCookie = cookieService.read('todo');
-  const cookie = currentCookie
-    .split('&')
-    .filter(item => item !== value)
-    .join('&');
+export const remove = async value => {
+  try {
+    const currentCookie = cookieService.read('todo');
+    const cookie = currentCookie
+      .split('&')
+      .filter(item => item !== value)
+      .join('&');
 
-  cookieService.write('todo', cookie);
+    return cookieService.write('todo', cookie);
+  } catch (e) {
+    throw (e);
+  }
 };
 
-export const save = value => {
-  const currentCookie = cookieService.read('todo');
-  const currentValue = currentCookie ? `${currentCookie}&` : '';
+export const save = async value => {
+  try {
+    const currentCookie = cookieService.read('todo');
+    const currentValue = currentCookie ? `${currentCookie}&` : '';
 
-  cookieService.write('todo', `${currentValue}${value}`);
+    return cookieService.write('todo', `${currentValue}${value}`);
+  } catch (e) {
+    throw (e);
+  }
 };
 
 export const read = () => {
+
   const result = cookieService.read('todo');
 
   return result ? Promise.resolve(result.split('&')) : Promise.resolve([]);
 };
 
-export const removeAll = () => {
-  cookieService.remove('todo');
+export const removeAll = async () => {
+  try {
+    return cookieService.remove('todo');
+  } catch (e) {
+    throw (e);
+  }
 };

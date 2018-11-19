@@ -1,20 +1,28 @@
-import {localStorageService} from './index';
+import { localStorageService } from './index';
 
-export const remove = value => {
-  const currentCookie = localStorageService.read('todo');
-  const cookie = currentCookie
-    .split('&')
-    .filter(item => item !== value)
-    .join('&');
+export const remove = async value => {
+  try {
+    const currentCookie = localStorageService.read('todo');
+    const cookie = currentCookie
+      .split('&')
+      .filter(item => item !== value)
+      .join('&');
 
-  localStorageService.write('todo', cookie);
+    return localStorageService.write('todo', cookie);
+  } catch (e) {
+    throw (e);
+  }
 };
 
-export const save = value => {
-  const currentCookie = localStorageService.read('todo');
-  const currentValue = currentCookie ? `${currentCookie}&` : '';
+export const save = async value => {
+  try {
+    const currentCookie = localStorageService.read('todo');
+    const currentValue = currentCookie ? `${currentCookie}&` : '';
 
-  localStorageService.write('todo', `${currentValue}${value}`);
+    return localStorageService.write('todo', `${currentValue}${value}`);
+  } catch (e) {
+    throw (e);
+  }
 };
 
 export const read = () => {
@@ -23,6 +31,10 @@ export const read = () => {
   return result ? Promise.resolve(result.split('&')) : Promise.resolve([]);
 };
 
-export const removeAll = () => {
-  localStorageService.remove('todo');
+export const removeAll = async () => {
+  try {
+    return localStorageService.remove('todo');
+  } catch (e) {
+    throw (e);
+  }
 };

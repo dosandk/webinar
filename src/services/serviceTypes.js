@@ -3,4 +3,5 @@ export default {
   localStorage: 'localStorage',
   mLab: 'mLab',
   sessionStorage: 'sessionStorage',
+  indexDb: 'indexDb',
 };
