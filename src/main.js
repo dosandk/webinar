@@ -1,15 +1,13 @@
-import {getAdapter} from './services';
-
+import {adapters} from './services';
+import * as service from './services/utils';
 import './styles/main.scss';
 
 const $input = document.getElementById('input');
 const $clearBtn = document.getElementById('clear-cookie');
 const $tasksList = document.getElementById('tasks-list');
 
-const adapter = getAdapter('mLab');
-
 $clearBtn.addEventListener('click', () => {
-  adapter.removeAll();
+  service.removeAll(adapters);
   $tasksList.innerHTML = '';
 });
 
@@ -17,7 +15,7 @@ $input.addEventListener('keyup', event => {
   if (event.key === 'Enter') {
     const {value} = event.target;
 
-    adapter.save(value);
+    service.save(adapters, value);
     renderTask(createTask(value));
     event.target.value = '';
   }
@@ -29,7 +27,7 @@ $tasksList.addEventListener('click', event => {
     const value = $valueElement.textContent;
 
     $tasksList.removeChild(event.target.parentNode);
-    adapter.remove(value);
+    service.remove(adapters, value);
   }
 });
 
@@ -52,7 +50,9 @@ const initialize = arr => {
   arr.forEach(item => renderTask(createTask(item)));
 };
 
-adapter.read()
+
+adapters.indexedDb.read();
+adapters.mLab.read()
   .then(data => {
     initialize(data);
   });
