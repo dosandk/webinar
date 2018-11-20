@@ -2,7 +2,7 @@ import idb from 'idb';
 
 const openedDB = idb.open('todoDatabase', 1, upgradeDB => {
   if (!upgradeDB.objectStoreNames.contains('todos')) {
-    upgradeDB.createObjectStore('todos');
+    upgradeDB.createObjectStore('todos', { unique: false });
   }
 });
 
