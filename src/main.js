@@ -1,4 +1,4 @@
-import {getAdapter} from './services';
+import { getAdapter } from './services';
 
 import './styles/main.scss';
 
@@ -6,7 +6,7 @@ const $input = document.getElementById('input');
 const $clearBtn = document.getElementById('clear-cookie');
 const $tasksList = document.getElementById('tasks-list');
 
-const adapter = getAdapter('mLab');
+const adapter = getAdapter('indexDB');
 
 $clearBtn.addEventListener('click', () => {
   adapter.removeAll();
@@ -15,7 +15,7 @@ $clearBtn.addEventListener('click', () => {
 
 $input.addEventListener('keyup', event => {
   if (event.key === 'Enter') {
-    const {value} = event.target;
+    const { value } = event.target;
 
     adapter.save(value);
     renderTask(createTask(value));
@@ -38,7 +38,7 @@ const createTask = value => {
 
   $li.innerHTML = `
     <span class="value">${value}</span>
-    <span class="remove">&#x274C;</span>  
+    <span class="remove">&#x274C;</span>
   `;
 
   return $li;
