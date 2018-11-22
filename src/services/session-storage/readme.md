@@ -1,3 +1,3 @@
 # Session-storage
 
-TODO: need to implement
+service that allows to perform CRUD operations with sessionStorage
