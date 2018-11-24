@@ -1,4 +1,4 @@
-import {localStorageService} from './index';
+import { localStorageService } from './index';
 
 export const remove = value => {
   const currentCookie = localStorageService.read('todo');

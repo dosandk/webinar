@@ -1,28 +1,28 @@
-import { cookieService } from './index';
+import { sessionStorageService } from './index';
 
 export const remove = value => {
-  const currentCookie = cookieService.read('todo');
+  const currentCookie = sessionStorageService.read('todo');
   const cookie = currentCookie
     .split('&')
     .filter(item => item !== value)
     .join('&');
 
-  cookieService.write('todo', cookie);
+  sessionStorageService.write('todo', cookie);
 };
 
 export const save = value => {
-  const currentCookie = cookieService.read('todo');
+  const currentCookie = sessionStorageService.read('todo');
   const currentValue = currentCookie ? `${currentCookie}&` : '';
 
-  cookieService.write('todo', `${currentValue}${value}`);
+  sessionStorageService.write('todo', `${currentValue}${value}`);
 };
 
 export const read = () => {
-  const result = cookieService.read('todo');
+  const result = sessionStorageService.read('todo');
 
   return result ? Promise.resolve(result.split('&')) : Promise.resolve([]);
 };
 
 export const removeAll = () => {
-  cookieService.remove('todo');
+  sessionStorageService.remove('todo');
 };
