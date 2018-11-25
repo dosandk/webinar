@@ -6,7 +6,7 @@ const $input = document.getElementById('input');
 const $clearBtn = document.getElementById('clear-cookie');
 const $tasksList = document.getElementById('tasks-list');
 
-const adapter = getAdapter('mLab');
+const adapter = getAdapter('indexedDB');
 
 $clearBtn.addEventListener('click', () => {
   adapter.removeAll();
@@ -25,11 +25,12 @@ $input.addEventListener('keyup', event => {
 
 $tasksList.addEventListener('click', event => {
   if (event.target.classList.contains('remove')) {
-    const [$valueElement] = event.target.parentNode.getElementsByClassName('value');
+    const $li = event.target.parentNode;
+    const [$valueElement] = $li.getElementsByClassName('value');
     const value = $valueElement.textContent;
-
+    const index = getIndex($li);
     $tasksList.removeChild(event.target.parentNode);
-    adapter.remove(value);
+    adapter.remove(value, index);
   }
 });
 
@@ -42,6 +43,15 @@ const createTask = value => {
   `;
 
   return $li;
+};
+
+const getIndex = node => {
+  const childs = $tasksList.childNodes;
+  let i = 0;
+  for (i; i < childs.length; i++) {
+    if (node === childs[i]) break;
+  }
+  return i;
 };
 
 const renderTask = data => {
