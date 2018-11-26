@@ -6,7 +6,8 @@ const $input = document.getElementById('input');
 const $clearBtn = document.getElementById('clear-cookie');
 const $tasksList = document.getElementById('tasks-list');
 
-const adapter = getAdapter('mLab');
+const adapter = getAdapter('indexDb');
+// const adapter = getAdapter('sessionStorage');
 
 $clearBtn.addEventListener('click', () => {
   adapter.removeAll();

@@ -6,7 +6,6 @@ export const remove = value => {
     .split('&')
     .filter(item => item !== value)
     .join('&');
-
   localStorageService.write('todo', cookie);
 };
 
