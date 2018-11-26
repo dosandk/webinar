@@ -2,12 +2,14 @@ import * as cookieAdapter from './cookie/adapter';
 import * as localStorageAdapter from './local-storage/adapter';
 import {mLabService} from './mLab';
 import {indexDB, indexDbAdapter} from "./index-db";
+import {sessionStorageService} from "./session-storage";
 
 const adapters = {
   cookie: cookieAdapter,
   localStorage: localStorageAdapter,
   mLab: mLabService,
-  indexDB: indexDbAdapter
+  indexDB: indexDbAdapter,
+  sessionStorageService: sessionStorageService
 };
 
 export const getAdapter = name => {
