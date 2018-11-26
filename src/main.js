@@ -6,7 +6,7 @@ const $input = document.getElementById('input');
 const $clearBtn = document.getElementById('clear-cookie');
 const $tasksList = document.getElementById('tasks-list');
 
-const adapter = getAdapter('mLab');
+const adapter = getAdapter('indexedDb');
 
 $clearBtn.addEventListener('click', () => {
   adapter.removeAll();
@@ -56,4 +56,3 @@ adapter.read()
   .then(data => {
     initialize(data);
   });
-
