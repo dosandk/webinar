@@ -6,7 +6,7 @@ const $input = document.getElementById('input');
 const $clearBtn = document.getElementById('clear-cookie');
 const $tasksList = document.getElementById('tasks-list');
 
-const adapter = getAdapter('mLab');
+const adapter = getAdapter('sessionStorage');
 
 $clearBtn.addEventListener('click', () => {
   adapter.removeAll();
@@ -38,7 +38,7 @@ const createTask = value => {
 
   $li.innerHTML = `
     <span class="value">${value}</span>
-    <span class="remove">&#x274C;</span>  
+    <span class="remove">&#x274C;</span>
   `;
 
   return $li;
@@ -56,4 +56,3 @@ adapter.read()
   .then(data => {
     initialize(data);
   });
-
