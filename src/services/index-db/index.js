@@ -5,6 +5,7 @@ export const indexDbService = {
         const dataBase = response;
         const transaction = response.transaction(key, 'readwrite');
         const table = transaction.objectStore(key);
+
         table.put(value);
         transaction.oncomplete = () => {
           dataBase.close();
@@ -23,8 +24,8 @@ export const indexDbService = {
 
           transaction.oncomplete = () => {
             const {result} = data;
-            dataBase.close();
 
+            dataBase.close();
             resolve(result);
           };
         })
@@ -68,7 +69,7 @@ export const indexDbService = {
           dataBase.close();
         };
       })
-      .catch(error => new Error(error));
+      .catch(error => console.log(error)); /* eslint-disable-line no-console */
   }
 };
 
