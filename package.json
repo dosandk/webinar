@@ -1,7 +1,7 @@
 {
   "name": "webinar",
   "version": "1.0.0",
-  "description": "",
+  "description": "Browser API: DOM API, fetch, API, storages API, Web/Service Workers",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack/webpack.dev.js --open HOST=0.0.0.0",
@@ -38,5 +38,6 @@
     "webpack": "^4.22.0",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9"
-  }
+  },
+  "dependencies": {}
 }
